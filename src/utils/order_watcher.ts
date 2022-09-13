@@ -20,6 +20,7 @@ export class OrderWatcher implements OrderWatcherInterface {
                 timeout: 1000,
             });
         } catch (err) {
+            console.log('err :>> ', err);
             if (err.response.data) {
                 throw new ValidationError(err.response.data.validationErrors);
             } else if (err.request) {

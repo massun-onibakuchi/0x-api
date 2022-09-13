@@ -203,6 +203,7 @@ export class OrderBookService {
         this._orderWatcher = orderWatcher;
     }
     public async addOrderAsync(signedOrder: SignedLimitOrder): Promise<void> {
+        // order watcher 
         await this._orderWatcher.postOrdersAsync([signedOrder]);
     }
     public async addOrdersAsync(signedOrders: SignedLimitOrder[]): Promise<void> {

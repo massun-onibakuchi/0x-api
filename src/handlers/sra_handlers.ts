@@ -74,6 +74,7 @@ export class SRAHandlers {
         const shouldSkipConfirmation = req.query.skipConfirmation === 'true';
         schemaUtils.validateSchema(req.body, schemas.sraPostOrderPayloadSchema);
         const signedOrder = unmarshallOrder(req.body);
+        // @note WHITELIST Tokens
         if (WHITELISTED_TOKENS !== '*') {
             const allowedTokens: string[] = WHITELISTED_TOKENS;
             validateAssetTokenOrThrow(allowedTokens, signedOrder.makerToken, 'makerToken');
@@ -82,6 +83,7 @@ export class SRAHandlers {
         if (shouldSkipConfirmation) {
             res.status(HttpStatus.OK).send();
         }
+        // @note
         await this._orderBook.addOrderAsync(signedOrder);
         if (!shouldSkipConfirmation) {
             res.status(HttpStatus.OK).send();
