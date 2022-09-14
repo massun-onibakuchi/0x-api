@@ -71,6 +71,7 @@ export class OrderBookService {
     }
 
     // tslint:disable-next-line:prefer-function-over-method
+    // @note
     public async getOrdersAsync(
         page: number,
         perPage: number,

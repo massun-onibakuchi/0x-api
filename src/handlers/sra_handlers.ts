@@ -54,6 +54,7 @@ export class SRAHandlers {
             isUnfillable: req.query.unfillable === 'true',
         };
         const { page, perPage } = paginationUtils.parsePaginationConfig(req);
+        // @note
         const paginatedOrders = await this._orderBook.getOrdersAsync(
             page,
             perPage,
