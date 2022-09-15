@@ -42,6 +42,7 @@ export class OrderBookService {
         baseToken: string,
         quoteToken: string,
     ): Promise<OrderbookResponse> {
+        // NOTE: All parameters should use lowerCamelCase.
         const orderEntities = await this._connection.manager.find(SignedOrderV4Entity, {
             where: {
                 takerToken: In([baseToken, quoteToken]),
@@ -132,7 +133,7 @@ export class OrderBookService {
                 },
             }),
         ]);
-        console.log('signedOrderEntities :>> ', signedOrderEntities);
+        // console.log('signedOrderEntities :>> ', signedOrderEntities);
         const apiOrders = (signedOrderEntities as Required<SignedOrderV4Entity>[]).map(
             orderUtils.deserializeOrderToSRAOrder,
         );
