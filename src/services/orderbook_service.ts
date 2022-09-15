@@ -71,7 +71,7 @@ export class OrderBookService {
     }
 
     // tslint:disable-next-line:prefer-function-over-method
-    // @note
+    // @note GET /v1/orders
     public async getOrdersAsync(
         page: number,
         perPage: number,
@@ -132,6 +132,7 @@ export class OrderBookService {
                 },
             }),
         ]);
+        console.log('signedOrderEntities :>> ', signedOrderEntities);
         const apiOrders = (signedOrderEntities as Required<SignedOrderV4Entity>[]).map(
             orderUtils.deserializeOrderToSRAOrder,
         );
