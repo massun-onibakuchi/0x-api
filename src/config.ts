@@ -206,9 +206,7 @@ export const CHAIN_ID: ChainId = _.isEmpty(process.env.CHAIN_ID)
     : assertEnvVarType('CHAIN_ID', process.env.CHAIN_ID, EnvVarType.ChainId);
 
 // Whitelisted token addresses. Set to a '*' instead of an array to allow all tokens.
-export const WHITELISTED_TOKENS: string[] | '*' = _.isEmpty(process.env.WHITELIST_ALL_TOKENS)
-    ? TokenMetadatasForChains.map((tm) => tm.tokenAddresses[CHAIN_ID])
-    : assertEnvVarType('WHITELIST_ALL_TOKENS', process.env.WHITELIST_ALL_TOKENS, EnvVarType.WhitelistAllTokens);
+export const WHITELISTED_TOKENS = '*'
 
 // Ignored addresses only for Swap endpoints (still present in database and SRA).
 export const SWAP_IGNORED_ADDRESSES: string[] = _.isEmpty(process.env.SWAP_IGNORED_ADDRESSES)
@@ -231,19 +229,19 @@ export const PROMETHEUS_REQUEST_BUCKETS = linearBuckets(0, 0.25, RPC_REQUEST_TIM
 export const ENABLE_RPC_REQUEST_COMPRESSION = _.isEmpty(process.env.ENABLE_RPC_REQUEST_COMPRESSION)
     ? false
     : assertEnvVarType(
-          'ENABLE_RPC_REQUEST_COMPRESSION',
-          process.env.ENABLE_RPC_REQUEST_COMPRESSION,
-          EnvVarType.Boolean,
-      );
+        'ENABLE_RPC_REQUEST_COMPRESSION',
+        process.env.ENABLE_RPC_REQUEST_COMPRESSION,
+        EnvVarType.Boolean,
+    );
 
 // S3 bucket for slippage model file
 export const SLIPPAGE_MODEL_S3_BUCKET_NAME: string | undefined = _.isEmpty(process.env.SLIPPAGE_MODEL_S3_BUCKET_NAME)
     ? undefined
     : assertEnvVarType(
-          'SLIPPAGE_MODEL_S3_BUCKET_NAME',
-          process.env.SLIPPAGE_MODEL_S3_BUCKET_NAME,
-          EnvVarType.NonEmptyString,
-      );
+        'SLIPPAGE_MODEL_S3_BUCKET_NAME',
+        process.env.SLIPPAGE_MODEL_S3_BUCKET_NAME,
+        EnvVarType.NonEmptyString,
+    );
 export const SLIPPAGE_MODEL_S3_FILE_NAME: string = `SlippageModel-${CHAIN_ID}.json`;
 export const SLIPPAGE_MODEL_S3_API_VERSION: string = '2006-03-01';
 export const SLIPPAGE_MODEL_S3_FILE_VALID_INTERVAL_MS: number = ONE_HOUR_MS * 2;
@@ -269,10 +267,10 @@ export const KAFKA_CONSUMER_GROUP_ID = _.isEmpty(process.env.KAFKA_CONSUMER_GROU
 export const WEBSOCKET_ORDER_UPDATES_PATH = _.isEmpty(process.env.WEBSOCKET_ORDER_UPDATES_PATH)
     ? ORDERBOOK_PATH
     : assertEnvVarType(
-          'WEBSOCKET_ORDER_UPDATES_PATH',
-          process.env.WEBSOCKET_ORDER_UPDATES_PATH,
-          EnvVarType.NonEmptyString,
-      );
+        'WEBSOCKET_ORDER_UPDATES_PATH',
+        process.env.WEBSOCKET_ORDER_UPDATES_PATH,
+        EnvVarType.NonEmptyString,
+    );
 
 // The fee recipient for orders
 export const FEE_RECIPIENT_ADDRESS = _.isEmpty(process.env.FEE_RECIPIENT_ADDRESS)
@@ -288,19 +286,19 @@ export const TAKER_FEE_UNIT_AMOUNT = _.isEmpty(process.env.TAKER_FEE_UNIT_AMOUNT
 export const MAX_ORDER_EXPIRATION_BUFFER_SECONDS: number = _.isEmpty(process.env.MAX_ORDER_EXPIRATION_BUFFER_SECONDS)
     ? 3 * 60
     : assertEnvVarType(
-          'MAX_ORDER_EXPIRATION_BUFFER_SECONDS',
-          process.env.MAX_ORDER_EXPIRATION_BUFFER_SECONDS,
-          EnvVarType.KeepAliveTimeout,
-      );
+        'MAX_ORDER_EXPIRATION_BUFFER_SECONDS',
+        process.env.MAX_ORDER_EXPIRATION_BUFFER_SECONDS,
+        EnvVarType.KeepAliveTimeout,
+    );
 
 // Ignore orders greater than x seconds when responding to SRA requests
 export const SRA_ORDER_EXPIRATION_BUFFER_SECONDS: number = _.isEmpty(process.env.SRA_ORDER_EXPIRATION_BUFFER_SECONDS)
     ? 10
     : assertEnvVarType(
-          'SRA_ORDER_EXPIRATION_BUFFER_SECONDS',
-          process.env.SRA_ORDER_EXPIRATION_BUFFER_SECONDS,
-          EnvVarType.KeepAliveTimeout,
-      );
+        'SRA_ORDER_EXPIRATION_BUFFER_SECONDS',
+        process.env.SRA_ORDER_EXPIRATION_BUFFER_SECONDS,
+        EnvVarType.KeepAliveTimeout,
+    );
 
 export const POSTGRES_URI = _.isEmpty(process.env.POSTGRES_URI)
     ? DEFAULT_LOCAL_POSTGRES_URI
@@ -318,10 +316,10 @@ export const LOGGER_INCLUDE_TIMESTAMP = _.isEmpty(process.env.LOGGER_INCLUDE_TIM
 export const LIQUIDITY_PROVIDER_REGISTRY: LiquidityProviderRegistry = _.isEmpty(process.env.LIQUIDITY_PROVIDER_REGISTRY)
     ? {}
     : assertEnvVarType(
-          'LIQUIDITY_PROVIDER_REGISTRY',
-          process.env.LIQUIDITY_PROVIDER_REGISTRY,
-          EnvVarType.LiquidityProviderRegistry,
-      );
+        'LIQUIDITY_PROVIDER_REGISTRY',
+        process.env.LIQUIDITY_PROVIDER_REGISTRY,
+        EnvVarType.LiquidityProviderRegistry,
+    );
 
 export const RFQT_REGISTRY_PASSWORDS: string[] = resolveEnvVar<string[]>(
     'RFQT_REGISTRY_PASSWORDS',
@@ -405,20 +403,20 @@ export const SRA_PERSISTENT_ORDER_POSTING_WHITELISTED_API_KEYS: string[] =
     process.env.SRA_PERSISTENT_ORDER_POSTING_WHITELISTED_API_KEYS === undefined
         ? []
         : assertEnvVarType(
-              'SRA_PERSISTENT_ORDER_POSTING_WHITELISTED_API_KEYS',
-              process.env.SRA_PERSISTENT_ORDER_POSTING_WHITELISTED_API_KEYS,
-              EnvVarType.APIKeys,
-          );
+            'SRA_PERSISTENT_ORDER_POSTING_WHITELISTED_API_KEYS',
+            process.env.SRA_PERSISTENT_ORDER_POSTING_WHITELISTED_API_KEYS,
+            EnvVarType.APIKeys,
+        );
 
 // Whitelisted 0x API keys that can use the meta-txn /submit endpoint
 export const META_TXN_SUBMIT_WHITELISTED_API_KEYS: string[] =
     process.env.META_TXN_SUBMIT_WHITELISTED_API_KEYS === undefined
         ? []
         : assertEnvVarType(
-              'META_TXN_SUBMIT_WHITELISTED_API_KEYS',
-              process.env.META_TXN_SUBMIT_WHITELISTED_API_KEYS,
-              EnvVarType.APIKeys,
-          );
+            'META_TXN_SUBMIT_WHITELISTED_API_KEYS',
+            process.env.META_TXN_SUBMIT_WHITELISTED_API_KEYS,
+            EnvVarType.APIKeys,
+        );
 
 // The meta-txn relay sender private keys managed by the TransactionWatcher
 export const META_TXN_RELAY_PRIVATE_KEYS: string[] = _.isEmpty(process.env.META_TXN_RELAY_PRIVATE_KEYS)
@@ -429,10 +427,10 @@ export const META_TXN_RELAY_PRIVATE_KEYS: string[] = _.isEmpty(process.env.META_
 export const META_TXN_RELAY_EXPECTED_MINED_SEC: number = _.isEmpty(process.env.META_TXN_RELAY_EXPECTED_MINED_SEC)
     ? DEFAULT_EXPECTED_MINED_SEC
     : assertEnvVarType(
-          'META_TXN_RELAY_EXPECTED_MINED_SEC',
-          process.env.META_TXN_RELAY_EXPECTED_MINED_SEC,
-          EnvVarType.Integer,
-      );
+        'META_TXN_RELAY_EXPECTED_MINED_SEC',
+        process.env.META_TXN_RELAY_EXPECTED_MINED_SEC,
+        EnvVarType.Integer,
+    );
 // Should TransactionWatcherSignerService sign transactions
 // tslint:disable-next-line:boolean-naming
 export const META_TXN_SIGNING_ENABLED: boolean = _.isEmpty(process.env.META_TXN_SIGNING_ENABLED)
@@ -448,10 +446,10 @@ export const META_TXN_RATE_LIMITER_CONFIG: MetaTransactionRateLimitConfig | unde
 )
     ? undefined
     : assertEnvVarType(
-          'META_TXN_RATE_LIMITER_CONFIG',
-          process.env.META_TXN_RATE_LIMITER_CONFIG,
-          EnvVarType.RateLimitConfig,
-      );
+        'META_TXN_RATE_LIMITER_CONFIG',
+        process.env.META_TXN_RATE_LIMITER_CONFIG,
+        EnvVarType.RateLimitConfig,
+    );
 
 // Whether or not prometheus metrics should be enabled.
 // tslint:disable-next-line:boolean-naming
@@ -692,13 +690,13 @@ export const defaultHttpServiceWithRateLimiterConfig: HttpServiceConfig = {
 
 export const getIntegratorByIdOrThrow = (
     (integratorsMap: Map<string, Integrator>) =>
-    (integratorId: string): Integrator => {
-        const integrator = integratorsMap.get(integratorId);
-        if (!integrator) {
-            throw new Error(`Integrator ${integratorId} does not exist.`);
+        (integratorId: string): Integrator => {
+            const integrator = integratorsMap.get(integratorId);
+            if (!integrator) {
+                throw new Error(`Integrator ${integratorId} does not exist.`);
+            }
+            return integrator;
         }
-        return integrator;
-    }
 )(transformIntegratorsAcl(INTEGRATORS_ACL, 'integratorId'));
 
 /**
@@ -706,10 +704,10 @@ export const getIntegratorByIdOrThrow = (
  */
 export const getIntegratorIdForApiKey = (
     (integratorsMap: Map<string, Integrator>) =>
-    (apiKey: string): string | undefined => {
-        const integrator = integratorsMap.get(apiKey);
-        return integrator?.integratorId;
-    }
+        (apiKey: string): string | undefined => {
+            const integrator = integratorsMap.get(apiKey);
+            return integrator?.integratorId;
+        }
 )(transformIntegratorsAcl(INTEGRATORS_ACL, 'apiKeys'));
 
 /**
